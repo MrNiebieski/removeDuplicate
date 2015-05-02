@@ -15,7 +15,8 @@ with open(filename) as infile:
             lastName = columns[2]
             email = columns[3]
         #now check if this redundant
-            if (email != pre_email):
+            #if (email != pre_email):
+            if (email.lower() != pre_email.lower()):
                 bool_new = True
                 pre_email = email
                 pre_firstName = firstName
