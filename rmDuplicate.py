@@ -7,12 +7,27 @@ with open(filename) as infile:
         pre_firstName = ""
         pre_lastName = ""
         pre_email = ""
+        bool_new = False
         for line in line_list:
             columns = line.split('\t')
         #this is 0-based
             firstName = columns[1]
             lastName = columns[2]
             email = columns[3]
+        #now check if this redundant
+            if (email != pre_email):
+                bool_new = True
+                #print firstName, lastName
+                pre_email = email
+                pre_firstName = firstName
+                pre_lastName = lastName
+            else:
+                bool_new = False
+        #handle corner case if email is same but name is different
+                if (firstName!=pre_firstName or lastName!=pre_lastName):
+        #check if it is only a difference of captal
+                    print "Attention: this is unusual"
+                    print columns[0], email, firstName, lastName
             #phone number is XXX-XXX-XXXX
             phone1 = columns[4]
             phone2 = columns[5]
@@ -29,5 +44,5 @@ with open(filename) as infile:
                 newPhone2 = ''
             #print columns[4], newPhone1
             #print columns[5], newPhone2
-
-            fout.write(line)
+            if (bool_new):
+                fout.write(line)
